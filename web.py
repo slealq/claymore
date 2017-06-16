@@ -1,4 +1,5 @@
 from selenium import webdriver
+from pyvirtualdispaly import Display
 from bs4 import BeautifulSoup
 
 def available_curses(carne, passw):

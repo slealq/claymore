@@ -37,19 +37,11 @@ def available_curses(carne, passw, visible=False, close=True):
     pass_box = driver.find_element_by_name('pin')
     carne_box.send_keys(carne)
     pass_box.send_keys(passw)
-    # Click on the submit button
     driver.find_element_by_name('crudMethod').click()
-    try:
-        # Wait until title contains...
-        element = WebDriverWait(driver, 10).until(
-            EC.title_contains('Sistema eMatricula')
-        )
-    finally:
-        # Log succesfully 
-        print("Loaded succesfully...")
-    # Click on Cursos Pendientes
+    wait_until_title_contains(driver, 'Sistema eMatricula')
     driver.find_element_by_link_text('Cursos Pendientes del Plan').click()
-        
+    wait_until_title_contains(driver, 'proyectoMatriculaConsulta.do')
+    
     # Quit the browser
     if close:
         driver.quit()
@@ -58,4 +50,19 @@ def available_curses(carne, passw, visible=False, close=True):
     if not visible:
         vdisplay.stop()
 
-        
+def wait_until_title_contains(driver, piece, timeout=10):
+    """
+    Helper function of available curses. 
+
+    
+    """
+    try:
+        # Wait until title contains...                                         
+        element = WebDriverWait(driver, timeout).until(
+            EC.title_contains(piece)
+        )
+    finally:
+        # Log succesfully                                                      
+        print("Loaded page that contains '"+piece+"' succesfully...")
+
+    

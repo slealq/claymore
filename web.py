@@ -1,4 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from xvfbwrapper import Xvfb
 from bs4 import BeautifulSoup
 
@@ -35,7 +38,14 @@ def available_curses(carne, passw, visible=False, close=True):
     carne_box.send_keys(carne)
     pass_box.send_keys(passw)
     driver.find_element_by_name('crudMethod').click()
+    try:
+        element = WebDriverWait(driver, 10).until(
+            EC.title_contains('Sistema eMatricula')
+        )
+    finally:
+        print("Loaded succesfully...")
     
+        
     # Quit the browser
     if close:
         driver.quit()

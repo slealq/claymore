@@ -14,9 +14,13 @@ def available_curses(carne, passw):
 
     # Should use RoboBrowser or requests, but for now using Selenium
     driver = webdriver.Firefox()
+    # Go to ematricula 
     driver.get('https://ematricula.ucr.ac.cr/ematricula/login.do')
+    # Search for the boxes by the name and the fill them
     carne_box = driver.find_element_by_name('carne')
     pass_box = driver.find_element_by_name('pin')
+    carne_box.send_keys(carne)
+    pass_box.send_keys(passw)
     
     
 

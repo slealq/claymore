@@ -34,6 +34,7 @@ def available_curses(carne, passw, visible=False, close=True):
     pass_box = driver.find_element_by_name('pin')
     carne_box.send_keys(carne)
     pass_box.send_keys(passw)
+    driver.find_element_by_name('crudMethod').click()
     
     # Quit the browser
     if close:
@@ -42,3 +43,5 @@ def available_curses(carne, passw, visible=False, close=True):
     # If not visible, stop display
     if not visible:
         vdisplay.stop()
+
+        

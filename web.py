@@ -37,14 +37,18 @@ def available_curses(carne, passw, visible=False, close=True):
     pass_box = driver.find_element_by_name('pin')
     carne_box.send_keys(carne)
     pass_box.send_keys(passw)
+    # Click on the submit button
     driver.find_element_by_name('crudMethod').click()
     try:
+        # Wait until title contains...
         element = WebDriverWait(driver, 10).until(
             EC.title_contains('Sistema eMatricula')
         )
     finally:
+        # Log succesfully 
         print("Loaded succesfully...")
-    
+    # Click on Cursos Pendientes
+    driver.find_element_by_link_text('Cursos Pendientes del Plan').click()
         
     # Quit the browser
     if close:

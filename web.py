@@ -70,7 +70,7 @@ def wait_until_title_contains(driver, piece, timeout=10):
         element = WebDriverWait(driver, timeout).until(
             EC.title_contains(piece)
         )
-    except NameError and TimeoutException:
+    except TimeoutException:
         raise WebDriverException("It appears that there's someone logged in already...")
     
     finally:

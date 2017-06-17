@@ -2,6 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import WebDriverException
 from xvfbwrapper import Xvfb
 from bs4 import BeautifulSoup
 
@@ -67,10 +70,9 @@ def wait_until_title_contains(driver, piece, timeout=10):
         element = WebDriverWait(driver, timeout).until(
             EC.title_contains(piece)
         )
-    except NoSuchWindowException:
-        # Log an error
-
-        print("Something went wrong! Falling back...")
+    except NameError and TimeoutException:
+        raise WebDriverException("It appears that there's someone logged in already...")
+    
     finally:
         # Log succesfully                                                      
         print("Loaded page that contains '"+piece+"' succesfully...")

@@ -40,7 +40,7 @@ def available_curses(carne, passw, visible=False, close=True):
     driver.find_element_by_name('crudMethod').click()
     wait_until_title_contains(driver, 'Sistema eMatricula')
     driver.find_element_by_link_text('Cursos Pendientes del Plan').click()
-    wait_until_title_contains(driver, 'proyectoMatriculaConsulta.do')
+    wait_until_element_is_located(driver, 'formCarreras')
     
     # Quit the browser
     if close:
@@ -52,8 +52,8 @@ def available_curses(carne, passw, visible=False, close=True):
 
 def wait_until_title_contains(driver, piece, timeout=10):
     """
-    Helper function of available curses. 
-
+    Wait until the title contains the piece.
+    Default timeout will be 10 seconds.
     
     """
     try:
@@ -61,8 +61,24 @@ def wait_until_title_contains(driver, piece, timeout=10):
         element = WebDriverWait(driver, timeout).until(
             EC.title_contains(piece)
         )
+    except NoSuchWindowException:
+        # Log an error
+
+        print("Something went wrong! Falling back...")
     finally:
         # Log succesfully                                                      
         print("Loaded page that contains '"+piece+"' succesfully...")
-
     
+def wait_until_element_is_located(driver, element_id, timeout=10):
+    """
+    Wait until the element is located in the driver.
+    Default timeout will be 10 seconds.
+
+    """
+    try:
+        element = WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.ID, element_id))
+        )
+    finally:
+        print("Loaded page that contains '"+element_id+"' succesfully...")
+

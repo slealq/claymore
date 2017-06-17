@@ -41,6 +41,12 @@ def available_curses(carne, passw, visible=False, close=True):
     wait_until_title_contains(driver, 'Sistema eMatricula')
     driver.find_element_by_link_text('Cursos Pendientes del Plan').click()
     wait_until_element_is_located(driver, 'formCarreras')
+    career_dropdown = driver.find_element_by_name("carrera")
+    careers = [x for x in career_dropdown.find_elements_by_tag_name('option')]
+
+    for each_career in careers:
+        print(each_career.get_attribute('innerHTML'))
+        print(each_career.get_attribute('value'))
     
     # Quit the browser
     if close:

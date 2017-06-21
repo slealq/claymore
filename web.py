@@ -33,7 +33,7 @@ def available_curses(carne, passw, visible=False, close=True):
     if not visible:
         vdisplay.start()
     
-    # Open the browser and do the magic
+    # Open the browser and does the magic
     driver = webdriver.Firefox() 
     driver.get('https://ematricula.ucr.ac.cr/ematricula/login.do')
     carne_box = driver.find_element_by_name('carne')
@@ -45,12 +45,15 @@ def available_curses(carne, passw, visible=False, close=True):
     driver.find_element_by_link_text('Cursos Pendientes del Plan').click()
     wait_until_element_is_located(driver, 'formCarreras')
     career_dropdown = driver.find_element_by_name("carrera")
-    careers = [x for x in career_dropdown.find_elements_by_tag_name('option')]
-
+    careers = [x for x in career_dropdown.find_elements_by_tag_name('option')[1:]]
+    
     for each_career in careers:
         print(each_career.get_attribute('innerHTML'))
         print(each_career.get_attribute('value'))
-    
+	
+	
+    	
+
     # Quit the browser
     if close:
         driver.quit()

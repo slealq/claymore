@@ -50,8 +50,9 @@ def available_curses(carne, passw, visible=False, close=True):
     for each_career in careers:
         print(each_career.get_attribute('innerHTML'))
         print(each_career.get_attribute('value'))
-	
-	
+	each_career.click()
+	wait_until_class_is_located(driver,'data')
+
     	
 
     # Quit the browser
@@ -93,3 +94,15 @@ def wait_until_element_is_located(driver, element_id, timeout=10):
     finally:
         print("Loaded page that contains '"+element_id+"' succesfully...")
 
+def wait_until_class_is_located(driver, element_class, timeout=10):
+    """
+    Wait until the element is located in the driver.
+    Default timeout will be 10 seconds.
+
+    """
+    try:
+        element = WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.CLASS_NAME, element_class))
+        )
+    finally:
+        print("Loaded page that contains '"+element_class+"' succesfully...")
